@@ -1,8 +1,8 @@
 FROM golang:latest AS build
 
-#RUN go get github.com/jmunozal/goshowroom/helloworld-server
+RUN go get github.com/jmunozal/go-mongodb
 
-WORKDIR /go/src/github.com/jmunozal/goshowroom/helloworld-server
+WORKDIR /go/src/github.com/jmunozal/go-mongodb
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server
 
@@ -11,7 +11,6 @@ FROM alpine
 
 EXPOSE 8080
 
-USER nobody:nobody
-COPY --from=build /go/src/github.com/jmunozal/goshowroom/helloworld-server/server /server
+COPY --from=build /go/src/github.com/jmunozal/go-mongodb/server /server
 
 CMD [ "/server" ]
