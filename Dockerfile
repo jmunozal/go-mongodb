@@ -4,7 +4,7 @@ RUN go get github.com/jmunozal/go-mongodb
 
 WORKDIR /go/src/github.com/jmunozal/go-mongodb
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build . -o server
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server
 
 # STAGE 2: Deployment
 FROM alpine
