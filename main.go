@@ -36,6 +36,8 @@ func main() {
 	mongoDbHost := os.Getenv("mongodb.host")
 	mongoDBPort := os.Getenv("mongodb.port")
 
+	InfoLogger.Println("Connecting to mongodb in", mongoDbHost, "port", mongoDBPort)
+
 	var err error
 
 	client, err = mongo.NewClient(options.Client().ApplyURI("mongodb://" + mongoDbHost + ":" + mongoDBPort + ""))
