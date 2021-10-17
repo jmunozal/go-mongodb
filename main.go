@@ -62,9 +62,19 @@ func handleRequests() {
 
 	myRouter.HandleFunc("/movies/year/{year}", getMoviesByYear)
 	myRouter.HandleFunc("/movies", getAllMovies)
+	myRouter.HandleFunc("/health", health)
 
 	InfoLogger.Println("Handling requests in port 8080")
 	http.ListenAndServe(":8080", myRouter)
+
+}
+
+func health(responseWriter http.ResponseWriter, request *http.Request) {
+
+	InfoLogger.Println("health method called")
+
+	responseWriter.Header().Add("Content-Type", "text/plain")
+	responseWriter.Write([]byte("1"))
 
 }
 
@@ -111,7 +121,7 @@ func executeCursor(moviesCursor *mongo.Cursor, responseWriter http.ResponseWrite
 		ErrorLogger.Println("Error marshalling data")
 	}
 
-	responseWriter.Header().Add("Content-Type", "application-json")
+	responseWriter.Header().Add("Content-Type", "application/json")
 	responseWriter.Write(jsonResp)
 
 }

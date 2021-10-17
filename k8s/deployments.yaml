@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-mongodb
+  labels:
+    app: go-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-mongodb
+  template:
+    metadata:
+      labels:
+        app: go-mongodb
+    spec:
+      containers:
+      - name: go-mongodb
+        image: jmunozal/go-mongodb:1.1
+        env:
+          - name: mongodb_host
+            valueFrom:
+              configMapKeyRef:
+                name: mongotest
+                key: mongodb_host
+          - name: mongodb_port
+            valueFrom:
+              configMapKeyRef:
+                name: mongotest
+                key: mongodb_port
+        ports:
+        - containerPort: 8080
+
