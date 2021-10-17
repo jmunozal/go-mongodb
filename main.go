@@ -118,13 +118,21 @@ func executeCursor(moviesCursor *mongo.Cursor, responseWriter http.ResponseWrite
 		ErrorLogger.Println(err.Error())
 	}
 
-	jsonResp, err := json.Marshal(movies)
-	if err != nil {
-		ErrorLogger.Println("Error marshalling data")
+	if len(movies) == 0 { //not found
+		responseWriter.WriteHeader(http.StatusNotFound)
+		responseWriter.Write([]byte("404 err not found"))
+	} else { // found
+
+		jsonResp, err := json.Marshal(movies)
+		if err != nil {
+			ErrorLogger.Println("Error marshalling data")
+		}
+
+		responseWriter.Header().Add("Content-Type", "application/json")
+		responseWriter.Write(jsonResp)
 	}
 
-	responseWriter.Header().Add("Content-Type", "application/json")
-	responseWriter.Write(jsonResp)
+
 
 }
 
