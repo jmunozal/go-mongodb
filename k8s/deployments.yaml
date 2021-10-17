@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: go-mongodb
-        image: jmunozal/go-mongodb:1.1
+        image: jmunozal/go-mongodb:1.2
         env:
           - name: mongodb_host
             valueFrom:
